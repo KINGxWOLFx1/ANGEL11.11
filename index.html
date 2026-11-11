@@ -1,0 +1,697 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111a2a">
+<title>Malak — A Place in My World</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@400;500&display=swap');
+
+:root {
+  --navy: #111a2a;
+  --navy2: #19283a;
+  --cream: #f3eee4;
+  --muted: #b9b6ad;
+  --red: #b66a65;
+  --line: #ffffff24;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(ellipse at 85% 15%, #35465b66, transparent 40%),
+    radial-gradient(ellipse at 10% 90%, #743d4540, transparent 45%),
+    linear-gradient(145deg, #111a2a, #172438 55%, #101725);
+}
+
+.texture {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+
+.ambient {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #b66a6520;
+  filter: blur(110px);
+  right: -100px;
+  bottom: 5%;
+  animation: ambient 9s infinite alternate;
+}
+
+.topbar {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream);
+  text-transform: uppercase;
+}
+
+.date {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 2px;
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 75px 25px 85px;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 470px;
+}
+
+.slide {
+  display: none;
+  animation: appear .8s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.slide.active {
+  display: block;
+}
+
+.eyebrow {
+  color: #d29a87;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.hero-number {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(100px, 26vw, 155px);
+  font-weight: 400;
+  line-height: .85;
+  letter-spacing: -8px;
+  color: var(--cream);
+}
+
+.hero-number span {
+  color: var(--red);
+  font-style: italic;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 11vw, 65px);
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -2px;
+}
+
+.hero-title em {
+  color: #d29a87;
+  font-weight: 400;
+}
+
+.heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 8.5vw, 49px);
+  line-height: 1.18;
+  font-weight: 400;
+  letter-spacing: -1px;
+  max-width: 420px;
+}
+
+.heading em {
+  color: #d29a87;
+  font-weight: 400;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 27px 0;
+}
+
+.rule span {
+  height: 1px;
+  width: 42px;
+  background: var(--red);
+}
+
+.rule small {
+  color: #b8aa9c;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.copy {
+  font-family: 'DM Sans', sans-serif;
+  color: #d4d2ce;
+  font-size: 14px;
+  line-height: 2;
+  max-width: 390px;
+  font-weight: 400;
+}
+
+.copy strong {
+  color: #f2d6c6;
+  font-weight: 600;
+}
+
+.handwritten {
+  color: #d29a87;
+  font-family: 'Caveat', cursive;
+  font-size: 28px;
+  margin-top: 23px;
+}
+
+.side-note {
+  position: absolute;
+  right: 0;
+  top: 0;
+  writing-mode: vertical-rl;
+  font-size: 8px;
+  color: #ffffff55;
+  letter-spacing: 3px;
+}
+
+.button-area {
+  margin-top: 33px;
+}
+
+.next {
+  border: 1px solid #d29a87;
+  background: transparent;
+  color: var(--cream);
+  min-width: 155px;
+  padding: 14px 22px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.next:hover {
+  background: #d29a87;
+  color: var(--navy);
+}
+
+.next:active {
+  transform: scale(.97);
+}
+
+.footer {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-label {
+  font-size: 8px;
+  color: #ffffff75;
+  letter-spacing: 2px;
+}
+
+.progress {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background: #ffffff35;
+  border-radius: 20px;
+  transition: .4s;
+}
+
+.dot.active {
+  width: 22px;
+  background: #d29a87;
+}
+
+.final-mark {
+  color: #d29a87;
+  font-family: 'Playfair Display', serif;
+  font-size: 35px;
+  margin-top: 22px;
+  font-style: italic;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes ambient {
+  from { transform: translate(0,0) scale(.8); }
+  to { transform: translate(-80px,-40px) scale(1.2); }
+}
+
+@media(max-height: 720px) {
+  main {
+    padding-top: 60px;
+    padding-bottom: 65px;
+  }
+
+  .copy {
+    font-size: 12px;
+    line-height: 1.75;
+  }
+
+  .rule {
+    margin: 17px 0;
+  }
+
+  .button-area {
+    margin-top: 20px;
+  }
+
+  .heading {
+    font-size: 34px;
+  }
+
+  .eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .handwritten {
+    margin-top: 13px;
+  }
+}
+
+@media(max-width: 380px) {
+  .copy {
+    font-size: 12px;
+  }
+
+  .topbar {
+    left: 20px;
+    right: 20px;
+  }
+
+  .footer {
+    left: 20px;
+    right: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="ambient"></div>
+<div class="texture"></div>
+
+<div class="topbar">
+  <div class="brand">A personal note</div>
+  <div class="date">11.11.2026</div>
+</div>
+
+<main>
+
+<div class="wrapper">
+
+  <!-- INTRO -->
+  <section class="slide active">
+
+    <div class="eyebrow">To someone who matters</div>
+
+    <div class="hero-number">
+      11<span>:11</span>
+    </div>
+
+    <div class="rule">
+      <span></span>
+      <small>A LITTLE SOMETHING FOR MALAK</small>
+    </div>
+
+    <p class="copy">
+      I could have just sent you a message,
+      but I wanted to do something a little
+      different. Something you could come
+      back to whenever you feel like it.
+    </p>
+
+    <div class="button-area">
+      <button class="next" onclick="nextSlide()">Read this</button>
+    </div>
+
+  </section>
+
+  <!-- 01 -->
+  <section class="slide">
+
+    <div class="eyebrow">01 / Let me tell you something</div>
+
+    <h2 class="heading">
+      Malak, you have a way of being
+      <em>important without even trying.</em>
+    </h2>
+
+    <div class="rule">
+      <span></span>
+      <small>NO EXAGGERATION</small>
+    </div>
+
+    <p class="copy">
+      It's not about saying you're perfect.
+      Nobody is. It's about the person you are,
+      the way you think, the little things you do,
+      and how your presence can change the mood
+      of an ordinary day.
+      <br><br>
+      <strong>I notice more than I probably say.</strong>
+    </p>
+
+    <div class="button-area">
+      <button class="next" onclick="nextSlide()">Keep going</button>
+    </div>
+
+  </section>
+
+  <!-- 02 -->
+  <section class="slide">
+
+    <div class="eyebrow">02 / The honest part</div>
+
+    <h2 class="heading">
+      I'm not here to sell you
+      <em>a perfect story.</em>
+    </h2>
+
+    <div class="rule">
+      <span></span>
+      <small>JUST THE TRUTH</small>
+    </div>
+
+    <p class="copy">
+      I have my own responsibilities, my plans,
+      my ambitions, and days when I have a lot
+      going on in my head.
+      <br><br>
+      I won't pretend I'll always get everything
+      right. But I don't want to be someone who
+      only knows how to speak beautifully.
+      <br><br>
+      <strong>I'd rather be genuine, consistent,
+      and someone whose actions mean something.</strong>
+    </p>
+
+    <div class="button-area">
+      <button class="next" onclick="nextSlide()">Next</button>
+    </div>
+
+  </section>
+
+  <!-- 03 -->
+  <section class="slide">
+
+    <div class="eyebrow">03 / What I appreciate</div>
+
+    <h2 class="heading">
+      It's the little things that
+      <em>stay with me.</em>
+    </h2>
+
+    <div class="rule">
+      <span></span>
+      <small>THE THINGS THAT MATTER</small>
+    </div>
+
+    <p class="copy">
+      A conversation that makes me smile.
+      A random moment. Your way of being.
+      The things you tell me, even the ones
+      you might forget five minutes later.
+      <br><br>
+      I don't need every day to be extraordinary.
+      Sometimes the simplest moments are the
+      ones worth keeping.
+      <br><br>
+      <strong>And I'm glad I get to share some
+      of those moments with you.</strong>
+    </p>
+
+    <div class="button-area">
+      <button class="next" onclick="nextSlide()">Continue</button>
+    </div>
+
+  </section>
+
+  <!-- 04 -->
+  <section class="slide">
+
+    <div class="eyebrow">04 / A prayer, not just words</div>
+
+    <h2 class="heading">
+      Allah ykhalik
+      <em>liya, Malak.</em>
+    </h2>
+
+    <div class="rule">
+      <span></span>
+      <small>FROM THE HEART</small>
+    </div>
+
+    <p class="copy">
+      I pray Allah protects you wherever you go,
+      gives you strength when things get difficult,
+      and puts peace in your heart.
+      <br><br>
+      May He bless your future, make your dreams
+      easier to reach, and keep you surrounded
+      by genuine happiness.
+      <br><br>
+      <strong>W y7afdek liya men kol khir.
+      That's a prayer I mean with all my heart.</strong>
+    </p>
+
+    <div class="button-area">
+      <button class="next" onclick="nextSlide()">One more</button>
+    </div>
+
+  </section>
+
+  <!-- 05 -->
+  <section class="slide">
+
+    <div class="eyebrow">05 / Something I want for you</div>
+
+    <h2 class="heading">
+      Never make yourself
+      <em>smaller for anyone.</em>
+    </h2>
+
+    <div class="rule">
+      <span></span>
+      <small>REMEMBER THIS</small>
+    </div>
+
+    <p class="copy">
+      Keep your standards. Keep your personality.
+      Keep becoming the woman you want to be.
+      Never lose yourself trying to make everyone
+      else comfortable.
+      <br><br>
+      I want to see you confident, successful,
+      happy, and proud of the person you're
+      becoming.
+      <br><br>
+      <strong>Your happiness and your future
+      matter. Never forget that.</strong>
+    </p>
+
+    <div class="button-area">
+      <button class="next" onclick="nextSlide()">Almost there</button>
+    </div>
+
+  </section>
+
+  <!-- FINAL -->
+  <section class="slide">
+
+    <div class="eyebrow">And this is what I wanted to say</div>
+
+    <h1 class="hero-title">
+      I'm glad
+      <em>it's you, Malak.</em>
+    </h1>
+
+    <div class="rule">
+      <span></span>
+      <small>11 : 11</small>
+    </div>
+
+    <p class="copy">
+      I don't need a special date to appreciate
+      you, but today gave me a reason to put
+      these thoughts into words.
+      <br><br>
+      Thank you for being part of my life.
+      I hope you never have to guess whether
+      you matter to me.
+      <br><br>
+      <strong>You do. More than I say,
+      and more than this little page can explain.</strong>
+    </p>
+
+    <div class="handwritten">
+      Allah ykhalik liya.
+    </div>
+
+    <div class="final-mark">— Always, with sincerity.</div>
+
+    <div class="button-area">
+      <button class="next" onclick="restart()">Read it again</button>
+    </div>
+
+  </section>
+
+</div>
+
+</main>
+
+<div class="footer">
+  <div class="footer-label">MADE WITH INTENTION</div>
+  <div class="progress" id="progress"></div>
+  <div class="footer-label">FOR MALAK</div>
+</div>
+
+<script>
+const slides = document.querySelectorAll(".slide");
+const progress = document.getElementById("progress");
+
+let current = 0;
+
+slides.forEach((slide, index) => {
+  const dot = document.createElement("div");
+  dot.className = "dot";
+
+  if (index === 0) {
+    dot.classList.add("active");
+  }
+
+  progress.appendChild(dot);
+});
+
+const dots = document.querySelectorAll(".dot");
+
+function showSlide(index) {
+
+  slides[current].classList.remove("active");
+  dots[current].classList.remove("active");
+
+  current = index;
+
+  slides[current].classList.remove("active");
+  void slides[current].offsetWidth;
+  slides[current].classList.add("active");
+
+  dots[current].classList.add("active");
+}
+
+function nextSlide() {
+
+  if (current < slides.length - 1) {
+    showSlide(current + 1);
+  }
+
+}
+
+function restart() {
+  showSlide(0);
+}
+
+let startX = 0;
+let startY = 0;
+
+document.addEventListener("touchstart", function(e) {
+  startX = e.changedTouches[0].screenX;
+  startY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+document.addEventListener("touchend", function(e) {
+
+  const endX = e.changedTouches[0].screenX;
+  const endY = e.changedTouches[0].screenY;
+
+  const dx = startX - endX;
+  const dy = startY - endY;
+
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+
+    if (dx > 0 && current < slides.length - 1) {
+      nextSlide();
+    }
+
+    if (dx < 0 && current > 0) {
+      showSlide(current - 1);
+    }
+
+  }
+
+}, { passive: true });
+
+</script>
+
+</body>
+</html>
