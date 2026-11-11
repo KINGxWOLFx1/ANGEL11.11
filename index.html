@@ -28,18 +28,19 @@ body {
   font-family: 'DM Sans', sans-serif;
 }
 
-/* BACKGROUND */
+/* CINEMATIC NIGHT BACKGROUND */
 
 .scene {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background:
-    linear-gradient(180deg,
-      #111827 0%,
-      #202d3e 36%,
-      #48343d 66%,
-      #151b29 100%);
+  background: linear-gradient(
+    180deg,
+    #111827 0%,
+    #202d3e 36%,
+    #48343d 66%,
+    #151b29 100%
+  );
   z-index: -5;
 }
 
@@ -97,7 +98,7 @@ body {
   animation-duration: 45s;
 }
 
-/* DISTANT CITY */
+/* CITY */
 
 .city {
   position: absolute;
@@ -159,10 +160,12 @@ body {
   width: 50%;
   height: 100%;
   transform: translateX(-50%);
-  background: linear-gradient(180deg,
+  background: linear-gradient(
+    180deg,
     transparent,
     #d9a88d12,
-    #b7c9dc10);
+    #b7c9dc10
+  );
   filter: blur(12px);
 }
 
@@ -171,15 +174,16 @@ body {
   bottom: 7%;
   width: 100%;
   height: 75px;
-  background:
-    linear-gradient(90deg,
-      transparent 8%,
-      #d7a78322 14%,
-      transparent 23%,
-      #d9b78d18 43%,
-      transparent 58%,
-      #d7a78320 77%,
-      transparent 91%);
+  background: linear-gradient(
+    90deg,
+    transparent 8%,
+    #d7a78322 14%,
+    transparent 23%,
+    #d9b78d18 43%,
+    transparent 58%,
+    #d7a78320 77%,
+    transparent 91%
+  );
   filter: blur(12px);
   animation: reflection 5s infinite alternate;
 }
@@ -191,7 +195,6 @@ body {
   height: 100%;
   width: 2px;
   background: #e1c49b12;
-  transform: perspective(150px) rotateX(20deg);
 }
 
 /* STREET LAMPS */
@@ -249,6 +252,17 @@ body {
   pointer-events: none;
 }
 
+/* FLOATING SPARKLES */
+
+#sparkles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
 .fog {
   position: fixed;
   bottom: 15%;
@@ -265,11 +279,12 @@ body {
 .overlay {
   position: fixed;
   inset: 0;
-  background:
-    linear-gradient(180deg,
-      #0a111e55,
-      #10152155 45%,
-      #080c16c9);
+  background: linear-gradient(
+    180deg,
+    #0a111e55,
+    #10152155 45%,
+    #080c16c9
+  );
   z-index: 3;
   pointer-events: none;
 }
@@ -426,6 +441,55 @@ button:active {
   transform: scale(.96);
 }
 
+/* FINAL LOVE MESSAGE */
+
+.love-ending {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.love-line {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 6vw, 32px);
+  font-style: italic;
+  color: #f4d7c4;
+  margin: 14px 0;
+  opacity: 0;
+  animation: loveReveal 1s ease forwards;
+}
+
+.love-line:nth-child(1) {
+  animation-delay: .3s;
+}
+
+.love-line:nth-child(2) {
+  animation-delay: 1.2s;
+  color: #e7b5a3;
+}
+
+.love-line:nth-child(3) {
+  animation-delay: 2.1s;
+  color: #f5e8d6;
+  font-size: 30px;
+}
+
+.love-ending .small-note {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #d29a87;
+  margin-top: 28px;
+  opacity: 0;
+  animation: loveReveal 1s ease 3s forwards;
+}
+
+.heart {
+  display: inline-block;
+  color: #d98d91;
+  animation: heartbeat 1.8s infinite;
+  margin-top: 17px;
+  font-size: 23px;
+}
+
 .footer {
   position: absolute;
   bottom: 27px;
@@ -460,6 +524,8 @@ button:active {
   width: 21px;
   background: #d29a87;
 }
+
+/* ANIMATIONS */
 
 @keyframes appear {
   from {
@@ -499,6 +565,24 @@ button:active {
   to { opacity: .7; }
 }
 
+@keyframes loveReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 @media(max-height: 720px) {
   main {
     padding-top: 65px;
@@ -524,6 +608,10 @@ button:active {
 
   .eyebrow {
     margin-bottom: 16px;
+  }
+
+  .love-line {
+    margin: 9px 0;
   }
 }
 
@@ -585,6 +673,7 @@ button:active {
 <div class="overlay"></div>
 
 <canvas id="rain"></canvas>
+<canvas id="sparkles"></canvas>
 
 <div class="grain"></div>
 
@@ -595,6 +684,8 @@ button:active {
 
 <main>
 <div class="wrapper">
+
+  <!-- PAGE 1 -->
 
   <section class="slide active">
 
@@ -622,6 +713,8 @@ button:active {
     </div>
 
   </section>
+
+  <!-- PAGE 2 -->
 
   <section class="slide">
 
@@ -653,6 +746,8 @@ button:active {
     </div>
 
   </section>
+
+  <!-- PAGE 3 -->
 
   <section class="slide">
 
@@ -688,6 +783,8 @@ button:active {
 
   </section>
 
+  <!-- PAGE 4 -->
+
   <section class="slide">
 
     <div class="eyebrow">03 / What I value</div>
@@ -721,6 +818,8 @@ button:active {
 
   </section>
 
+  <!-- PAGE 5 -->
+
   <section class="slide">
 
     <div class="eyebrow">04 / A prayer for you</div>
@@ -746,7 +845,7 @@ button:active {
       and may you always be surrounded
       by good things.
       <br><br>
-      <strong>W y7afdek men kol khir.</strong>
+      <strong>Allah ynejjik mn kol cher.</strong>
     </p>
 
     <div class="button-area">
@@ -755,72 +854,55 @@ button:active {
 
   </section>
 
-  <section class="slide">
-
-    <div class="eyebrow">05 / Never forget this</div>
-
-    <h2 class="heading">
-      Know your worth.
-      <em>Always.</em>
-    </h2>
-
-    <div class="rule">
-      <span></span>
-      <small>YOUR FUTURE MATTERS</small>
-    </div>
-
-    <p class="copy">
-      Keep your ambitions. Protect your
-      peace. Never stop becoming the
-      person you want to be.
-      <br><br>
-      I want to see you grow, achieve
-      your goals, and look back one day
-      feeling proud of everything
-      you've overcome.
-      <br><br>
-      <strong>You deserve a life that makes
-      you genuinely happy.</strong>
-    </p>
-
-    <div class="button-area">
-      <button onclick="nextSlide()">The final page</button>
-    </div>
-
-  </section>
+  <!-- FINAL PAGE -->
 
   <section class="slide">
 
-    <div class="eyebrow">And that's all I wanted to say</div>
+    <div class="eyebrow">05 / Three ways to say it</div>
 
-    <h2 class="heading">
-      I'm glad
-      <em>it's you, Malak.</em>
+    <h2 class="heading" style="text-align:center;">
+      Some feelings
+      <em>need no translation.</em>
     </h2>
 
-    <div class="rule">
+    <div class="rule" style="justify-content:center;">
       <span></span>
-      <small>11 : 11</small>
+      <small>JUST THREE WORDS</small>
+      <span></span>
     </div>
 
-    <p class="copy">
-      I could write a hundred more lines,
-      but I think the simplest words
-      sometimes mean the most.
-      <br><br>
-      I'm grateful our paths crossed.
-      I'm grateful for your presence.
-      And I hope you never have to
-      question whether you matter to me.
-      <br><br>
-      <strong>You do. And I mean that.</strong>
+    <p class="copy" style="text-align:center; margin:auto;">
+      Different languages. One feeling.
+      One person I want to say it to.
     </p>
 
-    <div class="handwritten">
-      Allah ykhalik liya.
+    <div class="love-ending">
+
+      <div class="love-line">
+        I love you.
+      </div>
+
+      <div class="love-line">
+        Je t'aime.
+      </div>
+
+      <div class="love-line" dir="rtl">
+        أحبك.
+      </div>
+
+      <div class="heart">♥</div>
+
+      <div class="small-note">
+        THREE LANGUAGES · ONE HEART
+      </div>
+
     </div>
 
-    <div class="button-area">
+    <div class="handwritten" style="text-align:center;">
+      Always, with love — Malak.
+    </div>
+
+    <div class="button-area" style="text-align:center;">
       <button onclick="restart()">Read it again</button>
     </div>
 
@@ -845,7 +927,9 @@ const progress = document.getElementById("progress");
 let current = 0;
 
 slides.forEach((slide, index) => {
+
   const dot = document.createElement("div");
+
   dot.className = "dot";
 
   if (index === 0) {
@@ -853,6 +937,7 @@ slides.forEach((slide, index) => {
   }
 
   progress.appendChild(dot);
+
 });
 
 const dots = document.querySelectorAll(".dot");
@@ -883,14 +968,16 @@ function restart() {
   showSlide(0);
 }
 
-/* TOUCH SWIPE */
+/* SWIPE NAVIGATION */
 
 let startX = 0;
 let startY = 0;
 
 document.addEventListener("touchstart", function(e) {
+
   startX = e.changedTouches[0].screenX;
   startY = e.changedTouches[0].screenY;
+
 }, {passive:true});
 
 document.addEventListener("touchend", function(e) {
@@ -912,15 +999,14 @@ document.addEventListener("touchend", function(e) {
 
 }, {passive:true});
 
-/* ANIMATED RAIN */
+/* RAIN ANIMATION */
 
-const canvas = document.getElementById("rain");
-const ctx = canvas.getContext("2d");
+const rainCanvas = document.getElementById("rain");
+const rainCtx = rainCanvas.getContext("2d");
 
 let width;
 let height;
 let drops = [];
-let animationId;
 
 function resizeCanvas() {
 
@@ -929,17 +1015,17 @@ function resizeCanvas() {
   width = window.innerWidth;
   height = window.innerHeight;
 
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
+  [rainCanvas, sparkleCanvas].forEach(canvas => {
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+  });
 
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  rainCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  sparkleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   drops = [];
 
-  const count = Math.min(
-    220,
-    Math.floor(width / 3)
-  );
+  const count = Math.min(220, Math.floor(width / 3));
 
   for (let i = 0; i < count; i++) {
 
@@ -957,34 +1043,32 @@ function resizeCanvas() {
 
 function animateRain() {
 
-  ctx.clearRect(0, 0, width, height);
+  rainCtx.clearRect(0, 0, width, height);
 
-  ctx.lineWidth = .8;
+  rainCtx.lineWidth = .8;
 
   drops.forEach(drop => {
 
-    ctx.beginPath();
+    rainCtx.beginPath();
 
-    ctx.strokeStyle =
+    rainCtx.strokeStyle =
       `rgba(205,220,235,${drop.opacity})`;
 
-    ctx.moveTo(drop.x, drop.y);
+    rainCtx.moveTo(drop.x, drop.y);
 
-    ctx.lineTo(
+    rainCtx.lineTo(
       drop.x - 2,
       drop.y + drop.length
     );
 
-    ctx.stroke();
+    rainCtx.stroke();
 
     drop.y += drop.speed;
     drop.x -= 1.2;
 
     if (drop.y > height) {
-
       drop.y = -drop.length;
       drop.x = Math.random() * width;
-
     }
 
     if (drop.x < 0) {
@@ -993,16 +1077,111 @@ function animateRain() {
 
   });
 
-  animationId = requestAnimationFrame(animateRain);
+  requestAnimationFrame(animateRain);
 
 }
 
-if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  resizeCanvas();
+/* FLOATING GOLDEN SPARKLES */
+
+const sparkleCanvas = document.getElementById("sparkles");
+const sparkleCtx = sparkleCanvas.getContext("2d");
+
+let sparkles = [];
+
+function createSparkles() {
+
+  sparkles = [];
+
+  for (let i = 0; i < 65; i++) {
+
+    sparkles.push({
+
+      x: Math.random() * width,
+      y: Math.random() * height,
+
+      size: .5 + Math.random() * 1.8,
+
+      speed: .15 + Math.random() * .45,
+
+      opacity: .2 + Math.random() * .7,
+
+      phase: Math.random() * Math.PI * 2,
+
+      drift: (Math.random() - .5) * .5
+
+    });
+
+  }
+
+}
+
+function animateSparkles() {
+
+  sparkleCtx.clearRect(0, 0, width, height);
+
+  const time = Date.now() * .001;
+
+  sparkles.forEach(s => {
+
+    const twinkle =
+      .25 + Math.abs(Math.sin(time * 1.7 + s.phase)) * .75;
+
+    sparkleCtx.globalAlpha = s.opacity * twinkle;
+
+    sparkleCtx.fillStyle = "#f6dfb5";
+
+    sparkleCtx.shadowBlur = 9;
+    sparkleCtx.shadowColor = "#f6cfa0";
+
+    sparkleCtx.beginPath();
+
+    sparkleCtx.arc(
+      s.x,
+      s.y,
+      s.size,
+      0,
+      Math.PI * 2
+    );
+
+    sparkleCtx.fill();
+
+    s.y -= s.speed;
+    s.x += s.drift;
+
+    if (s.y < -5) {
+      s.y = height + 5;
+      s.x = Math.random() * width;
+    }
+
+    if (s.x < -5) s.x = width + 5;
+    if (s.x > width + 5) s.x = -5;
+
+  });
+
+  sparkleCtx.globalAlpha = 1;
+  sparkleCtx.shadowBlur = 0;
+
+  requestAnimationFrame(animateSparkles);
+
+}
+
+/* START */
+
+const reducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+resizeCanvas();
+createSparkles();
+
+if (!reducedMotion) {
   animateRain();
+  animateSparkles();
 }
 
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener("resize", function() {
+  resizeCanvas();
+  createSparkles();
+});
 
 </script>
 
